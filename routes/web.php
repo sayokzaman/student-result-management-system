@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
-use App\Http\Controllers\CourseController; 
 
 Route::inertia('/', 'welcome', [
     'canRegister' => Features::enabled(Features::registration()),
@@ -12,6 +13,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 
     Route::resource('courses', CourseController::class);
+
+    Route::resource('users', UserController::class);
 });
 
 require __DIR__.'/settings.php';
