@@ -8,31 +8,23 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import CourseCard from '@/pages/courses/course-card';
-import CreateCourseDialog from '@/pages/courses/create-course-dialog';
+import CreateTrimesterDialog from '@/pages/trimesters/create-trimester-dialog'
+import TrimesterCard from '@/pages/trimesters/trimester-card';
 import { dashboard } from '@/routes';
 import type { PaginationData } from '@/types/pagination';
 
-interface CreateCourseDialogProps {
-    courses?: PaginationData<Course>;
-    departments?: Department[];
-    teachers?: User[];
-}
+type TrimesterData = PaginationData<Trimester>;
 
-const CourseIndex = ({
-    courses,
-    departments,
-    teachers,
-}: CreateCourseDialogProps) => {
+const TrimesterIndex = ({ trimesters }: { trimesters: TrimesterData }) => {
     return (
         <>
-            <Head title="Courses" />
+            <Head title="Trimesters" />
             <main className="flex-1">
                 <div className="p-8">
                     <div className="mb-8 flex items-end justify-between">
                         <div>
                             <h1 className="text-2xl font-bold tracking-tight">
-                                Course Directory
+                                Trimester Directory
                             </h1>
                             <p className="text-muted-foreground">
                                 Manage and monitor all platform members from a
@@ -40,10 +32,7 @@ const CourseIndex = ({
                             </p>
                         </div>
 
-                        <CreateCourseDialog
-                            departments={departments}
-                            teachers={teachers}
-                        />
+                        <CreateTrimesterDialog />
                     </div>
 
                     <div className="rounded-xl">
@@ -60,27 +49,25 @@ const CourseIndex = ({
                                 />
                             </div>
                             <Button variant="outline" className="flex gap-2">
-                                <Filter size={16} /> All Departments
+                                <Filter size={16} /> All Type
                             </Button>
                             <Button variant="outline" className="flex gap-2">
                                 <Calendar size={16} /> Created: Last 30 days
                             </Button>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2 xl:grid-cols-3">
-                            {courses?.data.map((course) => (
-                                <CourseCard
-                                    key={course.id}
-                                    course={course}
-                                    departments={departments}
-                                    teachers={teachers}
+                        <div className="flex flex-col gap-4 py-4">
+                            {trimesters.data.map((trimester) => (
+                                <TrimesterCard
+                                    key={trimester.id}
+                                    trimester={trimester}
                                 />
                             ))}
                         </div>
 
                         {/* Pagination */}
                         <div className="flex items-center justify-between border-t p-4 text-sm text-muted-foreground">
-                            <span>Showing 1 to 4 of 128 users</span>
+                            <span>Showing 1 to 4 of 128 trimesters</span>
                             <div className="flex items-center gap-2">
                                 <Button
                                     variant="outline"
@@ -126,17 +113,17 @@ const CourseIndex = ({
     );
 };
 
-CourseIndex.layout = {
+TrimesterIndex.layout = {
     breadcrumbs: [
         {
             title: 'Dashboard',
             href: dashboard(),
         },
         {
-            title: 'Courses',
-            href: '/courses',
+            title: 'Trimesters',
+            href: '/trimesters',
         },
     ],
 };
 
-export default CourseIndex;
+export default TrimesterIndex;

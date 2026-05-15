@@ -6,8 +6,6 @@ import {
     Filter,
     Search,
 } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -18,23 +16,23 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import UserActions from '@/pages/users/actions';
-import CreateUserDialog from '@/pages/users/create-user-dialog';
+import DepartmentActions from '@/pages/departments/actions';
+import CreateDepartmentDialog from '@/pages/departments/create-department-dialog';
 import { dashboard } from '@/routes';
 import type { PaginationData } from '@/types/pagination';
 
-type UserData = PaginationData<User>;
+type DepartmentData = PaginationData<Department>;
 
-const UserIndex = ({ users }: { users: UserData }) => {
+const DepartmentIndex = ({ departments }: { departments: DepartmentData }) => {
     return (
         <>
-            <Head title="Users" />
+            <Head title="Departments" />
             <main className="flex-1">
                 <div className="p-8">
                     <div className="mb-8 flex items-end justify-between">
                         <div>
                             <h1 className="text-2xl font-bold tracking-tight">
-                                User Directory
+                                Department Directory
                             </h1>
                             <p className="text-muted-foreground">
                                 Manage and monitor all platform members from a
@@ -42,7 +40,7 @@ const UserIndex = ({ users }: { users: UserData }) => {
                             </p>
                         </div>
 
-                        <CreateUserDialog />
+                        <CreateDepartmentDialog />
                     </div>
 
                     <div className="rounded-xl border shadow-sm">
@@ -59,7 +57,7 @@ const UserIndex = ({ users }: { users: UserData }) => {
                                 />
                             </div>
                             <Button variant="outline" className="flex gap-2">
-                                <Filter size={16} /> All Roles
+                                <Filter size={16} /> All Categories
                             </Button>
                             <Button variant="outline" className="flex gap-2">
                                 <Calendar size={16} /> Created: Last 30 days
@@ -73,10 +71,8 @@ const UserIndex = ({ users }: { users: UserData }) => {
                                     <TableHead className="w-30 px-4">
                                         ID
                                     </TableHead>
-                                    <TableHead>User Details</TableHead>
-                                    <TableHead>Email Address</TableHead>
-                                    <TableHead>Contact</TableHead>
-                                    <TableHead>Role</TableHead>
+                                    <TableHead>Name</TableHead>
+                                    <TableHead>Description</TableHead>
                                     <TableHead>Created At</TableHead>
                                     <TableHead className="text-right">
                                         Actions
@@ -84,45 +80,24 @@ const UserIndex = ({ users }: { users: UserData }) => {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {users.data.map((user) => (
-                                    <TableRow key={user.id}>
+                                {departments.data.map((department) => (
+                                    <TableRow key={department.id}>
                                         <TableCell className="px-4 font-medium text-muted-foreground">
-                                            {user.id}
+                                            {department.id}
                                         </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center gap-3">
-                                                <Avatar className="h-8 w-8 rounded-lg">
-                                                    <AvatarImage
-                                                        src={`https://ui-avatars.com/api/?name=${user.name}&background=random`}
-                                                    />
-                                                    <AvatarFallback>
-                                                        {user.name}
-                                                    </AvatarFallback>
-                                                </Avatar>
-                                                <span className="font-semibold">
-                                                    {user.name}
-                                                </span>
-                                            </div>
+                                        <TableCell className="font-semibold">
+                                            {department.name}
                                         </TableCell>
                                         <TableCell className="text-muted-foreground">
-                                            {user.email}
+                                            {department.description || 'N/A'}
                                         </TableCell>
                                         <TableCell className="text-muted-foreground">
-                                            {user.phone_number}
-                                        </TableCell>
-                                        <TableCell>
-                                            <Badge
-                                                variant="secondary"
-                                                className="rounded px-2 py-0.5 font-medium"
-                                            >
-                                                {user.role}
-                                            </Badge>
-                                        </TableCell>
-                                        <TableCell className="text-muted-foreground">
-                                            {user.created_at}
+                                            {department.created_at}
                                         </TableCell>
                                         <TableCell className="text-right">
-                                            <UserActions userData={user} />
+                                            <DepartmentActions
+                                                departmentData={department}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -177,17 +152,17 @@ const UserIndex = ({ users }: { users: UserData }) => {
     );
 };
 
-UserIndex.layout = {
+DepartmentIndex.layout = {
     breadcrumbs: [
         {
             title: 'Dashboard',
             href: dashboard(),
         },
         {
-            title: 'Users',
-            href: '/users',
+            title: 'Departments',
+            href: '/departments',
         },
     ],
 };
 
-export default UserIndex;
+export default DepartmentIndex;
