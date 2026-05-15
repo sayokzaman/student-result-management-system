@@ -1,0 +1,13 @@
+type Trimester = {
+    id: number;
+    type: string;
+    year: string;
+    status: TrimesterStatus;
+    name: string;
+    start_date: string;
+    end_date: string;
+    created_at: string;
+    updated_at: string;
+};
+
+type TrimesterStatus = 'active' | 'completed' | 'upcoming';

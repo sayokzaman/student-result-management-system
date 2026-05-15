@@ -1,20 +1,31 @@
 import { Head, useForm, router } from '@inertiajs/react';
 import AuthLayout from '@/layouts/auth-layout';
 
+interface Department {
+    id: number;
+    name: string;
+}
+
+interface CreateProps {
+    departments: Department[];
+}
+
 interface CreateFormData {
     code: string;
     name: string;
     credits: number | string;
     description: string;
+    department_id: number | string;
 }
 
-export default function Create() {
+export default function Create({ departments }: CreateProps) {
     const { data, setData, post, processing, errors } = useForm<CreateFormData>(
         {
             code: '',
             name: '',
             credits: '',
             description: '',
+            department_id: '',
         },
     );
 
@@ -67,6 +78,28 @@ export default function Create() {
                     {errors.credits && (
                         <div className="text-sm text-red-500">
                             {errors.credits}
+                        </div>
+                    )}
+                </div>
+                <div>
+                    <label className="block font-medium">Department</label>
+                    <select
+                        value={data.department_id}
+                        onChange={(e) =>
+                            setData('department_id', e.target.value)
+                        }
+                        className="w-full rounded border px-3 py-2"
+                    >
+                        <option value="">Select a department</option>
+                        {departments.map((dept) => (
+                            <option key={dept.id} value={dept.id}>
+                                {dept.name}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.department_id && (
+                        <div className="text-sm text-red-500">
+                            {errors.department_id}
                         </div>
                     )}
                 </div>

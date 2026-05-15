@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->get();
+        $users = User::with('roles')->paginate(10);
 
         return inertia('users/index', compact('users'));
     }

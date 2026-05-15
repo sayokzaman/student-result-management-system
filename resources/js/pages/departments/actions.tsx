@@ -9,10 +9,14 @@ import {
     PopoverTitle,
     PopoverTrigger,
 } from '@/components/ui/popover';
-import CreateUserDialog from '@/pages/users/create-user-dialog';
-import DeleteUserDialog from '@/pages/users/delete-user-dialog';
+import CreateDepartmentDialog from '@/pages/departments/create-department-dialog';
+import DeleteDepartmentDialog from '@/pages/departments/delete-department-dialog';
 
-const UserActions = ({ userData }: { userData: User | null }) => {
+const DepartmentActions = ({
+    departmentData,
+}: {
+    departmentData: Department | null;
+}) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -24,19 +28,19 @@ const UserActions = ({ userData }: { userData: User | null }) => {
             </PopoverTrigger>
             <PopoverContent align="end" className="w-48">
                 <PopoverHeader>
-                    <PopoverTitle>{userData?.name}</PopoverTitle>
+                    <PopoverTitle>{departmentData?.name}</PopoverTitle>
                     <PopoverDescription>
                         Description text here.
                     </PopoverDescription>
                 </PopoverHeader>
 
                 <div className="mt-2 flex flex-col gap-2 border-t pt-2">
-                    <CreateUserDialog user={userData} />
-                    <DeleteUserDialog user={userData} />
+                    <CreateDepartmentDialog department={departmentData} />
+                    <DeleteDepartmentDialog department={departmentData} />
                 </div>
             </PopoverContent>
         </Popover>
     );
 };
 
-export default UserActions;
+export default DepartmentActions;
