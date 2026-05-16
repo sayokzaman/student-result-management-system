@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Trimester;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TrimesterController extends Controller
@@ -49,7 +51,18 @@ class TrimesterController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Eager load everything smoothly in one readable step
+        $trimester = Trimester::findOrFail($id)->load([
+            'trimesterCourses.course.department',
+            'trimesterCourses.instructor',
+        ]);
+
+        $courses = Course::all();
+        $instructors = User::whereHas('roles', function ($query) {
+            $query->where('name', 'teacher');
+        })->get();
+
+        return inertia('trimesters/show', compact('trimester', 'courses', 'instructors'));
     }
 
     /**

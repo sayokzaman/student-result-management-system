@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import {
     Calendar,
     ChevronLeft,
@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import CreateTrimesterDialog from '@/pages/trimesters/create-trimester-dialog'
+import CreateTrimesterDialog from '@/pages/trimesters/create-trimester-dialog';
 import TrimesterCard from '@/pages/trimesters/trimester-card';
 import { dashboard } from '@/routes';
 import type { PaginationData } from '@/types/pagination';
@@ -58,10 +58,12 @@ const TrimesterIndex = ({ trimesters }: { trimesters: TrimesterData }) => {
 
                         <div className="flex flex-col gap-4 py-4">
                             {trimesters.data.map((trimester) => (
-                                <TrimesterCard
-                                    key={trimester.id}
-                                    trimester={trimester}
-                                />
+                                <Link key={trimester.id} href={`/trimesters/${trimester.id}`}>
+                                    <TrimesterCard
+                                        key={trimester.id}
+                                        trimester={trimester}
+                                    />
+                                </Link>
                             ))}
                         </div>
 

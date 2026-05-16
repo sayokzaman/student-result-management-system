@@ -25,7 +25,7 @@ export default function CourseCard({
 
     return (
         <div
-            className={`group rounded-lg bg-muted/80 p-6 shadow-sm hover:bg-muted ${className}`}
+            className={`group rounded-lg border p-6 shadow-sm duration-300 ease-in-out hover:border-primary/30 hover:shadow-lg ${className}`}
         >
             <div className="flex items-start justify-between">
                 <div className="flex items-center space-x-2">
@@ -69,14 +69,6 @@ export default function CourseCard({
                         </div>
                     </div>
 
-                    <div>
-                        <div className="text-xs text-muted-foreground">
-                            Instructor
-                        </div>
-                        <div className="text-sm">
-                            {course.instructor?.name ?? '—'}
-                        </div>
-                    </div>
                     <div>
                         <div className="text-xs text-muted-foreground">
                             Enrollment
