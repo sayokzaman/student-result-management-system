@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { CalendarRange, Clock3, Edit3, Users, Trash2 } from 'lucide-react';
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
@@ -72,16 +73,23 @@ export default function TrimesterCard({
     const status = statusConfig[trimester.status];
 
     return (
-        <Card className={cn('gap-4 py-5 shadow-sm bg-muted/80 hover:bg-muted', className)}>
+        <Card
+            className={cn(
+                'gap-4 hover:border-primary/30 duration-300 ease-in-out py-5 shadow-sm ',
+                className,
+            )}
+        >
             <CardHeader className="px-5 pb-0">
                 <div className="flex items-start justify-between gap-4">
                     <div className="space-y-2">
                         <div className="flex flex-wrap items-center gap-3">
-                            <CardTitle className="text-xl text-foreground capitalize">
-                                {trimester.name
-                                    ? trimester.name
-                                    : `${trimester.type} ${trimester.year}`}
-                            </CardTitle>
+                            <Link href={`/trimesters/${trimester.id}`}>
+                                <CardTitle className="text-xl text-foreground capitalize">
+                                    {trimester.name
+                                        ? trimester.name
+                                        : `${trimester.type} ${trimester.year}`}
+                                </CardTitle>
+                            </Link>
                             <Badge
                                 className={cn(
                                     'gap-1.5 rounded-full px-3 py-1',

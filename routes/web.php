@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseTrimesterController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\TrimesterController;
 use App\Http\Controllers\UserController;
@@ -19,6 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('departments', DepartmentController::class);
 
     Route::resource('courses', CourseController::class);
+
+    Route::resource('course-trimesters', CourseTrimesterController::class);
 
     Route::resource('users', UserController::class);
 });

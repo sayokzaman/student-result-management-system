@@ -61,7 +61,6 @@ class CourseSeeder extends Seeder
                     'credits' => $course['credits'],
                     'description' => $course['description'],
                     'department_id' => $department->id,
-                    'instructor_id' => $teacher?->id,
                 ]
             );
         }

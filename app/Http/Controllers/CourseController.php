@@ -11,7 +11,7 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::with('department', 'instructor')->latest(10)->paginate(10);
+        $courses = Course::with('department')->latest(10)->paginate(10);
 
         $departments = Department::all();
 
