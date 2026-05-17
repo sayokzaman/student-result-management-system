@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react'; // Added Link import
 import {
     Calendar,
     ChevronLeft,
@@ -73,6 +73,10 @@ const DepartmentIndex = ({ departments }: { departments: DepartmentData }) => {
                                     </TableHead>
                                     <TableHead>Name</TableHead>
                                     <TableHead>Description</TableHead>
+                                    <TableHead>Code</TableHead>
+                                    <TableHead>Tag</TableHead>
+                                    <TableHead>Building</TableHead>
+                                    <TableHead>Phone</TableHead>
                                     <TableHead>Created At</TableHead>
                                     <TableHead className="text-right">
                                         Actions
@@ -81,15 +85,36 @@ const DepartmentIndex = ({ departments }: { departments: DepartmentData }) => {
                             </TableHeader>
                             <TableBody>
                                 {departments.data.map((department) => (
-                                    <TableRow key={department.id}>
+                                    <TableRow
+                                        key={department.id}
+                                        className="group"
+                                    >
                                         <TableCell className="px-4 font-medium text-muted-foreground">
                                             {department.id}
                                         </TableCell>
                                         <TableCell className="font-semibold">
-                                            {department.name}
+                                            {/* WRAPPED NAME IN LINK BELOW */}
+                                            <Link
+                                                href={`/departments/${department.id}`}
+                                                className="cursor-pointer text-white transition-colors hover:text-indigo-400"
+                                            >
+                                                {department.name}
+                                            </Link>
                                         </TableCell>
                                         <TableCell className="text-muted-foreground">
                                             {department.description || 'N/A'}
+                                        </TableCell>
+                                        <TableCell className="text-muted-foreground">
+                                            {department.code || 'N/A'}
+                                        </TableCell>
+                                        <TableCell className="text-muted-foreground">
+                                            {department.tag || 'N/A'}
+                                        </TableCell>
+                                        <TableCell className="text-muted-foreground">
+                                            {department.building || 'N/A'}
+                                        </TableCell>
+                                        <TableCell className="text-muted-foreground">
+                                            {department.phone || 'N/A'}
                                         </TableCell>
                                         <TableCell className="text-muted-foreground">
                                             {department.created_at}
@@ -106,15 +131,20 @@ const DepartmentIndex = ({ departments }: { departments: DepartmentData }) => {
 
                         {/* Pagination */}
                         <div className="flex items-center justify-between border-t p-4 text-sm text-muted-foreground">
-                            <span>Showing 1 to 4 of 128 users</span>
+                            <span>
+                                Showing {departments.from} to {departments.to}{' '}
+                                of {departments.total} departments
+                            </span>
                             <div className="flex items-center gap-2">
                                 <Button
                                     variant="outline"
                                     size="icon"
                                     className="h-8 w-8"
+                                    disabled={!departments.prev_page_url}
                                 >
                                     <ChevronLeft size={16} />
                                 </Button>
+                                {/* Simple Page buttons - strictly for UI visual match */}
                                 <Button
                                     variant="default"
                                     size="sm"
@@ -140,6 +170,7 @@ const DepartmentIndex = ({ departments }: { departments: DepartmentData }) => {
                                     variant="outline"
                                     size="icon"
                                     className="h-8 w-8"
+                                    disabled={!departments.next_page_url}
                                 >
                                     <ChevronRight size={16} />
                                 </Button>
