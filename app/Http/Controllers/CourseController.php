@@ -44,7 +44,7 @@ class CourseController extends Controller
 
     public function show(Course $course)
     {
-        //
+        return inertia('courses/show', compact('course'));
     }
 
     public function edit(Course $course)

@@ -27,6 +27,10 @@ const CreateDepartmentDialog = ({
     const form = useForm({
         name: '',
         description: '',
+        tag: '',
+        code: '',
+        building: '',
+        phone: '',
     });
 
     // Populate form when editing
@@ -35,6 +39,10 @@ const CreateDepartmentDialog = ({
             form.setData({
                 name: department.name || '',
                 description: department.description || '',
+                tag: department.tag || '',
+                code: department.code || '',
+                building: department.building || '',
+                phone: department.phone || '',
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,15 +75,15 @@ const CreateDepartmentDialog = ({
             <DialogTrigger asChild>
                 {isEditing ? (
                     <Button
-                        variant="secondary"
+                        variant="outline" // Changed from secondary for better visibility
                         size="sm"
-                        className="w-full justify-start"
+                        className="flex items-center gap-2" // Removed w-full justify-start for the Show page
                     >
                         <PenBoxIcon size={16} />
-                        Edit
+                        <span>Edit</span>
                     </Button>
                 ) : (
-                    <Button>
+                    <Button className="flex items-center gap-2">
                         <Plus size={16} /> Add Department
                     </Button>
                 )}
@@ -120,6 +128,78 @@ const CreateDepartmentDialog = ({
                         {form.errors.description && (
                             <p className="text-sm text-red-600">
                                 {form.errors.description}
+                            </p>
+                        )}
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="code">Department Code</Label>
+                        <Input
+                            id="code"
+                            name="code"
+                            placeholder="e.g., CS"
+                            value={form.data.code}
+                            onChange={(e) =>
+                                form.setData('code', e.target.value)
+                            }
+                            required
+                        />
+                        {form.errors.code && (
+                            <p className="text-sm text-red-600">
+                                {form.errors.code}
+                            </p>
+                        )}
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="tag">Department Tag</Label>
+                        <Input
+                            id="tag"
+                            name="tag"
+                            placeholder="e.g., Computer Science"
+                            value={form.data.tag}
+                            onChange={(e) =>
+                                form.setData('tag', e.target.value)
+                            }
+                            required
+                        />
+                        {form.errors.tag && (
+                            <p className="text-sm text-red-600">
+                                {form.errors.tag}
+                            </p>
+                        )}
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="building">Department Building</Label>
+                        <Input
+                            id="building"
+                            name="building"
+                            placeholder="e.g., Main Building"
+                            value={form.data.building}
+                            onChange={(e) =>
+                                form.setData('building', e.target.value)
+                            }
+                            required
+                        />
+                        {form.errors.building && (
+                            <p className="text-sm text-red-600">
+                                {form.errors.building}
+                            </p>
+                        )}
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="code">phone number</Label>
+                        <Input
+                            id="phone"
+                            name="phone"
+                            placeholder="e.g., 123-456-7890"
+                            value={form.data.phone}
+                            onChange={(e) =>
+                                form.setData('phone', e.target.value)
+                            }
+                            required
+                        />
+                        {form.errors.phone && (
+                            <p className="text-sm text-red-600">
+                                {form.errors.phone}
                             </p>
                         )}
                     </div>
